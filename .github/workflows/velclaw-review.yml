@@ -1,0 +1,88 @@
+name: Velclaw Review Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  NODE_VERSION: '22'
+  PNPM_VERSION: '10'
+
+jobs:
+  typecheck:
+    name: TypeScript typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        run: npm install --global pnpm@${PNPM_VERSION}
+
+      - name: Verify toolchain
+        run: |
+          set -euo pipefail
+          node --version
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm type-check
+
+  review:
+    name: AI review
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+
+      - name: Install Gito
+        run: python -m pip install --disable-pip-version-check 'gito.bot~=4.4'
+
+      - name: Run Gito review
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_API_TYPE: ${{ vars.LLM_API_TYPE || 'openai' }}
+          MODEL: ${{ vars.LLM_MODEL || 'gpt-5.5' }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [ -z "${LLM_API_KEY:-}" ]; then
+            echo 'AI review skipped: LLM_API_KEY is not configured.'
+            exit 0
+          fi
+          if ! gito --verbose review; then
+            echo 'AI review unavailable (for example, API quota/credits may be exhausted). Core CI remains authoritative.'
+            exit 0
+          fi
+          gito github-comment --token "$GITHUB_TOKEN"
+
+      - name: Publish review report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: velclaw-review-report
+          path: |
+            code-review-report.md
+            code-review-report.json
+          if-no-files-found: ignore
