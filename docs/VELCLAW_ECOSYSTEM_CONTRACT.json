@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 2,
+  "project": "velclaw",
+  "canonicalRepository": "Velclaw/VELCLAW",
+  "canonicalBranch": "main",
+  "canonicalDomain": "velclaw.cfd",
+  "integrationModel": "canonical-core-with-explicit-ecosystem-contracts",
+  "repositories": [
+    {"role":"core","repository":"Velclaw/VELCLAW","required":true},
+    {"role":"auth","repository":"Velclaw/Oauth","required":true},
+    {"role":"agent-runtime","repository":"Velclaw/velclaw-eve","required":true},
+    {"role":"deploy","repository":"Velclaw/deploy-velclaw","required":true},
+    {"role":"official-docs","repository":"Velclaw/docs.velclaw.ai","required":true},
+    {"role":"ui-reference","repository":"Velclaw/Velclaw-velclaw-docs-ui-reference","required":true},
+    {"role":"legacy-core","repository":"zskbot/Velclaw","required":true},
+    {"role":"release","repository":"zskbot/autoship-velclaw","required":true},
+    {"role":"app","repository":"zskbot/app-velclaw","required":true},
+    {"role":"pages","repository":"zskbot/velclaw-pages","required":true},
+    {"role":"browser","repository":"zskbot/velclaw-browser","required":true},
+    {"role":"docs-pages","repository":"zskbot/repo-docs-Velclaw","required":true}
+  ],
+  "contracts": ["github","http-api","webhooks","oauth","mcp-skills-plugins","artifacts","configuration"],
+  "deployment": {"provider":"vercel","canonicalProject":"velclaw","autoDeploy":true},
+  "secretsPolicy": "environment-or-provider-secret-store-only",
+  "consolidationPolicy": {
+    "preserveSourceRepositories": true,
+    "deleteSourceRepositories": false,
+    "snapshotMode": true,
+    "excludeSensitiveFiles": ["users.json", ".env", ".env.*", "*.pem", "*.key"]
+  }
+}

@@ -1,0 +1,21 @@
+repository:
+  # See https://developer.github.com/v3/repos/#edit for all available settings.
+  name: VELCLAW
+  description: Velclaw — AI-native software workspace for agents, developers, and teams.
+  homepage: https://velclaw.cfd
+  private: false
+  has_issues: true
+  has_wiki: true
+  has_downloads: true
+  default_branch: main
+  allow_squash_merge: true
+  allow_merge_commit: true
+  allow_rebase_merge: true
+
+labels:
+  - name: bug
+    color: CC0000
+  - name: feature
+    color: 336699
+  - name: first-timers-only
+    oldname: Help Wanted
