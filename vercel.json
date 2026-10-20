@@ -1,0 +1,65 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "app": {
+      "root": ".",
+      "framework": "nextjs"
+    },
+    "agentside": {
+      "root": "AgentsIDE",
+      "framework": "vite",
+      "installCommand": "pnpm install --no-frozen-lockfile --prod=false",
+      "buildCommand": "pnpm exec tsc -b && pnpm exec vite build"
+    },
+    "autoship": {
+      "root": "Autoship",
+      "framework": "vite"
+    },
+    "docs": {
+      "root": ".",
+      "framework": "vite",
+      "buildCommand": "pip install -r docs/requirements.txt && mkdocs build",
+      "outputDirectory": "site"
+    },
+    "kio": {
+      "root": "KIO",
+      "runtime": "node",
+      "entrypoint": "server.js"
+    },
+    "velclaw": {
+      "root": "Velclaw",
+      "framework": "nextjs"
+    },
+    "velclaw-docs": {
+      "root": "velclaw-docs",
+      "framework": "vite"
+    },
+    "velclaw-pages": {
+      "root": "velclaw-pages",
+      "runtime": "node",
+      "entrypoint": "server.js"
+    },
+    "zskai": {
+      "root": "ZsKai",
+      "framework": "vite"
+    },
+    "zvelclaw": {
+      "root": "Zvelclaw",
+      "runtime": "container"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/docs/(.*)",
+      "destination": {
+        "service": "docs"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "app"
+      }
+    }
+  ]
+}
