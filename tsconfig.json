@@ -36,6 +36,7 @@
     "app/mcp/worker/**",
     "velclaw.cfd/docs/**",
     "velclaw-pages/**",
-    "vite.config.ts"
+    "vite.config.ts",
+    "dashboard-skeleton/**"
   ]
 }
