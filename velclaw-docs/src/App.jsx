@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import Header from './components/Header'
 import MobileMenu from './components/MobileMenu'
 import Introduction from './pages/Introduction'
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/cau-hinh" element={<Configuration />} />
         <Route path="/trien-khai" element={<Deployment />} />
       </Routes>
+      <Analytics />
     </div>
   )
 }
