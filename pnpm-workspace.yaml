@@ -1,6 +1,7 @@
 packages:
   - "."
   - "AgentsIDE"
+  - "Autoship"
 
 allowBuilds:
   esbuild: true
