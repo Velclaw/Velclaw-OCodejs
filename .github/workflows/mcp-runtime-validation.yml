@@ -53,7 +53,7 @@ jobs:
         run: node -e "JSON.parse(require('fs').readFileSync('config/mcp.json','utf8')); JSON.parse(require('fs').readFileSync('.mcp.json','utf8')); console.log('MCP JSON valid')"
 
       - name: Install test dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --filter velclaw --frozen-lockfile
 
       - name: Test runtime registry
         run: pnpm exec tsx --test tests/mcp-runtime-registry.test.ts
