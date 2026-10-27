@@ -14,6 +14,10 @@ const products = [
   ['06', 'Plugins', 'Mở rộng workspace bằng hệ sinh thái plugin.', '/plugins'],
   ['07', 'Skills', 'Chuẩn hoá năng lực agent theo workflow.', '/skills'],
   ['08', 'Ecosystem', 'Một registry duy nhất cho Core, Hub, Deploy, MCP và các surface liên quan.', '/projects'],
+  ['09', 'Docs', 'Tài liệu kỹ thuật, hướng dẫn và API.', '/docs'],
+  ['10', 'Giới thiệu', 'Tìm hiểu nền tảng và kiến trúc Velclaw.', '/about'],
+  ['11', 'Ứng dụng', 'Danh mục công cụ và sản phẩm.', '/apps'],
+  ['12', 'Hub', 'Điểm điều hướng chung cho hệ sinh thái.', '/hub'],
 ] as const
 
 const flow = [
@@ -58,6 +62,10 @@ export function VelclawLanding({ role = 'platform' }: { role?: VelclawDomainRole
             <Link href="/skills">Skills</Link>
             <Link href="/plugins">Plugins</Link>
             <Link href="/projects">Ecosystem</Link>
+            <Link href="/docs">Docs</Link>
+            <Link href="/about">Giới thiệu</Link>
+            <Link href="/apps">Ứng dụng</Link>
+            <Link href="/hub">Hub</Link>
           </div>
         </details>
 
@@ -73,6 +81,9 @@ export function VelclawLanding({ role = 'platform' }: { role?: VelclawDomainRole
           <Link href="/console">Console</Link>
           <Link href="/builder">Nhà xây dựng</Link>
           <Link href="/velclaw">Không gian làm việc</Link>
+          <Link href="/docs">Docs</Link>
+          <Link href="/apps">Ứng dụng</Link>
+          <Link href="/hub">Hub</Link>
         </nav>
 
         <div className={styles.authActions}>
